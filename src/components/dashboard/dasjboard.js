@@ -118,7 +118,6 @@ let Dasjboard = () => {
         <div className="profile-card">
           <h2>{data.name}</h2>
 
-          {/* About Field */}
           <p>
             <strong>About:</strong>
             {editing.about ? (
@@ -140,7 +139,7 @@ let Dasjboard = () => {
             )}
           </p>
 
-          {/* Achievements Field */}
+    
           <p>
             <strong>Achievements:</strong>
             {editing.achievements ? (
@@ -162,7 +161,7 @@ let Dasjboard = () => {
             )}
           </p>
 
-          {/* Resume Field */}
+    
           <p>
             <strong>Resume:</strong> {data.resume || 'No resume uploaded'}
             <input

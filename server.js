@@ -13,8 +13,8 @@ let path = require('path');
 
 let fs = require('fs');
 app.use(cors({
-  origin: 'http://localhost:3000',  // or wherever your React app runs
-  credentials: true                // 🔥 must be true to support cookies
+  origin: 'http://localhost:3000',  
+  credentials: true                
 }));
 app.use(express.json());
 let Post = require('./models/post.js')
@@ -28,7 +28,7 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   store: MongoStore.create({ mongoUrl: 'mongodb://127.0.0.1:27017/job' }),
-  cookie: { maxAge: 1000 * 60 * 60 } // 1 hour
+  cookie: { maxAge: 1000 * 60 * 60 } 
 }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -36,7 +36,7 @@ app.use(passport.session());
 
 
 passport.use(new LocalStrategy(
-  { usernameField: 'mail' },  // tell passport to use `mail` instead of `username`
+  { usernameField: 'mail' },  
   async (mail, password, done) => {
     let user = await User.findOne({ mail });
     if (!user) return done(null, false, { message: 'User not found' });
@@ -49,7 +49,7 @@ passport.use(new LocalStrategy(
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user._id); // Store only the user ID in session
+  done(null, user._id); 
 });
 
 passport.deserializeUser(async (id, done) => {
@@ -118,7 +118,7 @@ app.post('/signin', passport.authenticate('local'), (req, res) => {
 
 app.post('/update_info',ensureAuth, async (req, res) => {
   let { field, value } = req.body;
-  let userId = req.user; // or however you store it
+  let userId = req.user; 
 
   if (!['about', 'achievements'].includes(field)) {
     return res.json({ msg: 'Invalid field' });
@@ -193,7 +193,7 @@ app.post('/apply',ensureAuth, async (req, res) => {
   post.save()
   
   
-  user.jobs_app.push({ id: id, status: false })//this is adddding post id nothe userid add it later
+  user.jobs_app.push({ id: id, status: false })
   user.save()
   res.json({ msg: "apllicant added", post })
 })
@@ -209,11 +209,10 @@ app.post('/u_details', ensureAuth, async (req, res) => {
 })
 
 app.post('/g_jobs', ensureAuth, async (req, res) => {
-  let jobsApp = req.body.jobs; // array of objects: [{ id, status }]
+  let jobsApp = req.body.jobs;
   let ids = jobsApp.map(job => job.id);
   let posts = await Post.find({ _id: { $in: ids } });
 
-  // Merge each job's status back into full post
   let merged = posts.map(post => {
     let statusObj = jobsApp.find(j => j.id === post._id.toString());
     return { ...post._doc, status: statusObj?.status ?? false };
@@ -224,7 +223,7 @@ app.post('/g_jobs', ensureAuth, async (req, res) => {
 
 
 app.post('/g_post', ensureAuth, async (req, res) => {
-  let postIds = req.body.post; // array of IDs
+  let postIds = req.body.post; 
   let posts = await Post.find({ _id: { $in: postIds } });
   res.json({ posts });
 });
@@ -234,18 +233,18 @@ app.post('/get_applicants', ensureAuth, async (req, res) => {
   try {
     let { jobId } = req.body;
 
-    // Step 1: Find the post
+  
     let post = await Post.findById(jobId);
     if (!post) return res.status(404).json({ error: 'Post not found' });
 
-    // Step 2: Extract applicant IDs
-    let applicantIds = post.applicants; // assume this is an array of user _id strings
+ 
+    let applicantIds = post.applicants; 
 
-    // Step 3: Fetch user details
+  
     let applicants = await User.find({ _id: { $in: applicantIds } })
-      .select('name mail about achievements resume'); // send only needed fields later ad the i reusme  as n aname ot get them 
+      .select('name mail about achievements resume'); 
 
-    // Step 4: Respond with user data
+  
     res.json({ applicants });
   } catch (err) {
     console.error('Error in /get_applicants:', err);
@@ -262,9 +261,7 @@ app.post('/update_application_status', ensureAuth, async (req, res) => {
       { $set: { 'jobs_app.$.status': status } }
 
     );
-    // let post=await Post.findById(jobId)
-    // await post.findByIdAndDelete(userId)
-    // post.save()
+
     if (result.modifiedCount > 0) {
       res.json({ message: 'Status updated' });
     } else {
@@ -279,16 +276,13 @@ app.post('/remove_post', ensureAuth, async (req, res) => {
   let { jobId } = req.body;
 
   try {
-    // 1. Delete the post from Post collection
     await Post.deleteOne({ _id: jobId });
 
-    // 2. Remove jobId from all users' jobs_app
     await User.updateMany(
       {},
       { $pull: { jobs_app: { id: jobId } } }
     );
 
-    // 3. Remove postId from the poster’s post array
     await User.updateMany(
       { post: jobId },
       { $pull: { post: jobId } }

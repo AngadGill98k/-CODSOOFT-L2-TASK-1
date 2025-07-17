@@ -14,20 +14,20 @@ let Login = () => {
 
   let handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
-    setErrorMsg(''); // Clear error on input change
+    setErrorMsg(''); 
   };
 
  let handleSubmit = () => {
   let url = isSignup ? 'http://localhost:3001/signup' : 'http://localhost:3001/signin';
   let { username, mail, password } = form;
 
-  // 🔒 Prevent submission if any field is empty
+
   if (!username.trim() || !mail.trim() || !password.trim()) {
     setErrorMsg('All fields are required.');
     return;
   }
 
-  // 🔒 Validate email format strictly
+ 
   let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(mail)) {
     setErrorMsg('Please enter a valid email address.');

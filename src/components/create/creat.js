@@ -18,7 +18,7 @@ let Creat = () => {
     let startValue = document.getElementById('start').value;
     let endValue = document.getElementById('end').value;
 
-    // Check for any missing fields
+  
     if (
       !companyName ||
       !role ||
