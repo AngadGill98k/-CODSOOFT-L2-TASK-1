@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
-  const navigate = useNavigate();
-  const [isSignup, setIsSignup] = useState(false);
-  const [form, setForm] = useState({
+let Login = () => {
+  let navigate = useNavigate();
+  let [isSignup, setIsSignup] = useState(false);
+  let [form, setForm] = useState({
     username: '',
     mail: '',
     password: ''
   });
-  const [errorMsg, setErrorMsg] = useState('');
+  let [errorMsg, setErrorMsg] = useState('');
 
-  const handleChange = (e) => {
+  let handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrorMsg(''); // Clear error on input change
   };
 
- const handleSubmit = () => {
-  const url = isSignup ? 'http://localhost:3001/signup' : 'http://localhost:3001/signin';
-  const { username, mail, password } = form;
+ let handleSubmit = () => {
+  let url = isSignup ? 'http://localhost:3001/signup' : 'http://localhost:3001/signin';
+  let { username, mail, password } = form;
 
   // 🔒 Prevent submission if any field is empty
   if (!username.trim() || !mail.trim() || !password.trim()) {
@@ -28,7 +28,7 @@ const Login = () => {
   }
 
   // 🔒 Validate email format strictly
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   if (!emailRegex.test(mail)) {
     setErrorMsg('Please enter a valid email address.');
     return;

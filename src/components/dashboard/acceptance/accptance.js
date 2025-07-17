@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import './accept.css'
 import Navbar from '../../nnavbarr/navbar';
-const Accptance = () => {
-  const location = useLocation();
-  const jobId = location.state?.postId;
+let Accptance = () => {
+  let location = useLocation();
+  let jobId = location.state?.postId;
 
-  const [applicants, setApplicants] = useState([]);
+  let [applicants, setApplicants] = useState([]);
 
   useEffect(() => {
     if (!jobId) return;
@@ -25,7 +25,7 @@ const Accptance = () => {
       .catch(err => console.error('Error fetching applicants:', err));
   }, [jobId]);
 
-  const updateStatus = (userId, status) => {
+  let updateStatus = (userId, status) => {
     fetch('http://localhost:3001/update_application_status', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -40,7 +40,7 @@ const Accptance = () => {
       .catch(err => console.error(`${status ? 'Accept' : 'Reject'} error:`, err));
   };
 
-  const handleRemovePost = () => {
+  let handleRemovePost = () => {
     fetch('http://localhost:3001/remove_post', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -54,7 +54,7 @@ const Accptance = () => {
       })
       .catch(err => console.error('Remove post error:', err));
   };
-const downloadResume = (email) => {
+let downloadResume = (email) => {
   fetch(`http://localhost:3001/download_resume_by_email`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -66,8 +66,8 @@ const downloadResume = (email) => {
       return res.blob();
     })
     .then(blob => {
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
+      let url = window.URL.createObjectURL(blob);
+      let a = document.createElement('a');
       a.href = url;
       a.download = 'resume.pdf';
       document.body.appendChild(a);

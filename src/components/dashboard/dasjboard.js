@@ -3,14 +3,14 @@ import Navbar from '../nnavbarr/navbar';
 import './dash.css';
 import { useNavigate } from 'react-router-dom';
 
-const Dasjboard = () => {
-  const [data, sdata] = useState({ jobs: [], post: [] });
-  const [fullPosts, setFullPosts] = useState([]);
-  const [appliedJobsDetails, setAppliedJobsDetails] = useState([]);
-  const [editing, setEditing] = useState({ about: false, achievements: false });
-  const [editForm, setEditForm] = useState({ about: '', achievements: '' });
-  const [resumeFile, setResumeFile] = useState(null);
-  const navigate = useNavigate();
+let Dasjboard = () => {
+  let [data, sdata] = useState({ jobs: [], post: [] });
+  let [fullPosts, setFullPosts] = useState([]);
+  let [appliedJobsDetails, setAppliedJobsDetails] = useState([]);
+  let [editing, setEditing] = useState({ about: false, achievements: false });
+  let [editForm, setEditForm] = useState({ about: '', achievements: '' });
+  let [resumeFile, setResumeFile] = useState(null);
+  let navigate = useNavigate();
 
   useEffect(() => {
     fetch(`http://localhost:3001/u_details`, {
@@ -64,14 +64,14 @@ const Dasjboard = () => {
     }
   }, [data.post]);
 
-  const handlePostClick = (e) => {
-    const li = e.currentTarget;
-    const id = li.getAttribute('postid');
+  let handlePostClick = (e) => {
+    let li = e.currentTarget;
+    let id = li.getAttribute('postid');
     navigate('/acceptance', { state: { postId: id } });
   };
 
-  const saveField = (field) => {
-    const updatedValue = editForm[field];
+  let saveField = (field) => {
+    let updatedValue = editForm[field];
 
     fetch('http://localhost:3001/update_info', {
       method: 'POST',
@@ -89,9 +89,9 @@ const Dasjboard = () => {
       .catch(err => console.error(err));
   };
 
-  const uploadResume = () => {
+  let uploadResume = () => {
     if (!resumeFile) return;
-    const formData = new FormData();
+    let formData = new FormData();
     formData.append('resume', resumeFile);
 
     fetch('http://localhost:3001/upload_resume', {

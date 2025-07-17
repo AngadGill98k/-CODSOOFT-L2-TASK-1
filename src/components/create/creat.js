@@ -3,20 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../nnavbarr/navbar';
 import './create.css';
 
-const Creat = () => {
-  const navigate = useNavigate();
-  const url = 'http://localhost:3001/';
-  const [errorMsg, setErrorMsg] = useState('');
+let Creat = () => {
+  let navigate = useNavigate();
+  let url = 'http://localhost:3001/';
+  let [errorMsg, setErrorMsg] = useState('');
 
-  const post = () => {
-    const companyName = document.getElementById('c_name').value.trim();
-    const role = document.getElementById('role').value.trim();
-    const salary = document.getElementById('sal').value.trim();
-    const responsibilities = document.getElementById('resp').value.trim();
-    const skills = document.getElementById('skill').value.trim();
-    const description = document.getElementById('j_desc').value.trim();
-    const startValue = document.getElementById('start').value;
-    const endValue = document.getElementById('end').value;
+  let post = () => {
+    let companyName = document.getElementById('c_name').value.trim();
+    let role = document.getElementById('role').value.trim();
+    let salary = document.getElementById('sal').value.trim();
+    let responsibilities = document.getElementById('resp').value.trim();
+    let skills = document.getElementById('skill').value.trim();
+    let description = document.getElementById('j_desc').value.trim();
+    let startValue = document.getElementById('start').value;
+    let endValue = document.getElementById('end').value;
 
     // Check for any missing fields
     if (
@@ -33,14 +33,14 @@ const Creat = () => {
       return;
     }
 
-    const startDate = new Date(startValue);
-    const endDate = new Date(endValue);
+    let startDate = new Date(startValue);
+    let endDate = new Date(endValue);
 
-    const monthDiff =
+    let monthDiff =
       (endDate.getFullYear() - startDate.getFullYear()) * 12 +
       (endDate.getMonth() - startDate.getMonth());
 
-    const data = {
+    let data = {
       companyName,
       role,
       salary,

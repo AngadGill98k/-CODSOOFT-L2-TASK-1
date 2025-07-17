@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../nnavbarr/navbar';
 import './main.css';
 
-const Main = () => {
-  const [list, setList] = useState([]);
-  const username = 'asd';
+let Main = () => {
+  let [list, setList] = useState([]);
+  let username = 'asd';
 
   useEffect(() => {
     fetch('http://localhost:3001/all_posts')
@@ -13,8 +13,8 @@ const Main = () => {
       .catch(err => console.error('Failed to fetch all posts', err));
   }, []);
 
-  const handleSearch = () => {
-    const job = document.querySelector('#j_type').value;
+  let handleSearch = () => {
+    let job = document.querySelector('#j_type').value;
     fetch('http://localhost:3001/search', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -26,9 +26,9 @@ const Main = () => {
       .catch(err => console.error('Search failed', err));
   };
 
-  const handleApply = (e) => {
-    const li = e.currentTarget.closest('.job-card');
-    const id = li.getAttribute('id');
+  let handleApply = (e) => {
+    let li = e.currentTarget.closest('.job-card');
+    let id = li.getAttribute('id');
     fetch('http://localhost:3001/apply', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
