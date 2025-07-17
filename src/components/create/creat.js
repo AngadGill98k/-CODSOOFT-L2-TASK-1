@@ -19,6 +19,7 @@ let Creat = () => {
     let endValue = document.getElementById('end').value;
 
   
+  
     if (
       !companyName ||
       !role ||
@@ -64,7 +65,7 @@ let Creat = () => {
       .then(data => {
         console.log(data.msg);
         console.log('Post format:', data.post);
-        navigate('/dashboard'); // redirect after post
+        navigate('/dashboard');
       })
       .catch(err => {
         console.error(err);

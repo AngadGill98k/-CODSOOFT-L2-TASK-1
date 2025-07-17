@@ -58,7 +58,7 @@ body {
   transition: background 0.3s ease;
 }
 
-/* Edit Button Style */
+
 .edit-btn {
   background-color: #f0f0f0;
   color: #333;
@@ -68,7 +68,6 @@ body {
   background-color: #ddd;
 }
 
-/* Save Button Style */
 .save-btn {
   background-color: #4caf50;
   color: white;
